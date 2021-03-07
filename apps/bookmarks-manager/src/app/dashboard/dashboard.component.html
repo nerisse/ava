@@ -1,0 +1,11 @@
+<h2>Categories</h2>
+<div class="bookmarks-menu">
+  <a *ngFor="let bookmark of bookmarks" routerLink="/detail/{{bookmark.id}}">
+    {{bookmark.name}}
+  </a>
+</div>
+<div class="bookmarks-menu">
+  <a *ngFor="let group of groups">
+    {{group}}
+  </a>
+</div>

@@ -1,0 +1,17 @@
+<div *ngIf="bookmark">
+  <h2>{{bookmark.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{bookmark.id}}</div>
+  <div>
+    <label for="bookmark-name">Name: </label>
+    <input id="bookmark-name" [(ngModel)]="bookmark.name" placeholder="name">
+  </div>
+  <div>
+    <label for="bookmark-url">Url: </label>
+    <input id="bookmark-url" [(ngModel)]="bookmark.url" placeholder="url">
+  </div>
+  <div>
+    <label for="bookmark-group">Group: </label>
+    <input id="bookmark-group" [(ngModel)]="bookmark.group" placeholder="group">
+  </div>
+</div>
+<button (click)="goBack()">My Bookmarks</button>

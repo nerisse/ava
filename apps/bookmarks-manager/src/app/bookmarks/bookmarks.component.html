@@ -1,0 +1,8 @@
+<h2>My Bookmarks</h2>
+<ul class="bookmarks">
+  <li *ngFor="let bookmark of bookmarks">
+    <a routerLink="/detail/{{bookmark.id}}">
+      <span class="badge">{{bookmark.id}}</span>{{bookmark.name}}
+    </a>
+  </li>
+</ul>
