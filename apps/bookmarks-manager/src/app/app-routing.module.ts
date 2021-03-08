@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'bookmarks', component: BookmarksComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'detail/:id', component: BookmarkDetailComponent },
+  { path: 'bookmarks/:group', component: BookmarksComponent },
 ];
 
 @NgModule({

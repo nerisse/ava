@@ -5,7 +5,8 @@
   </a>
 </div>
 <div class="bookmarks-menu">
-  <a *ngFor="let group of groups">
+  <a *ngFor="let group of groups" routerLink="/bookmarks/{{group}}">
     {{group}}
   </a>
 </div>
+<!--<ava-messages></ava-messages>-->

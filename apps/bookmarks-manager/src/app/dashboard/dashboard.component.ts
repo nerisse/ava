@@ -14,21 +14,13 @@ export class DashboardComponent implements OnInit {
   constructor(private bookmarkService: BookmarkService) { }
 
   ngOnInit() {
-    //this.getBookmarksOfGroup('Generic');
-    this.getBookmarkGroups();
+    this.getGroups();
   }
 
-  getBookmarks(): void {
-    this.bookmarkService.getBookmarks()
-      .subscribe(bookmarks => this.bookmarks = bookmarks.slice(1, 5));
-  }
-
-  getBookmarksOfGroup(group: string): void {
-    this.bookmarkService.getBookmarksOfGroup(group)
-      .subscribe(bookmarks => this.bookmarks = bookmarks.slice(0,2))
-  }
-
-  getBookmarkGroups(): void {
+  /**
+   * @returns Observable<string[]> Returns the observable array of of bookmark groups/categories
+   */
+  getGroups(): void {
     this.bookmarkService.getGroups().subscribe(groups => this.groups = groups);
   }
 }

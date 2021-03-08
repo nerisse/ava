@@ -13,7 +13,7 @@ export class BookmarkService {
 
   getBookmarks(): Observable<Bookmark[]> {
     const bookmarks = of(BOOKMARKS);
-    this.messageService.add('BookmarkService: fetched bookmarks');
+    this.messageService.add('BookmarkService: fetched all bookmarks');
     return bookmarks;
   }
 
@@ -23,8 +23,9 @@ export class BookmarkService {
   }
 
   getBookmarksOfGroup(group: string): Observable<Bookmark[]> {
+    const bookmarks = group? of(BOOKMARKS.filter(bookmark => bookmark.group === group)) : this.getBookmarks();
     this.messageService.add(`BookmarkService: fetched bookmark group=${group}`);
-    return of(BOOKMARKS.filter(bookmark => bookmark.group === 'Generic'));
+    return bookmarks;
   }
 
   getGroups(): Observable<string[]> {
