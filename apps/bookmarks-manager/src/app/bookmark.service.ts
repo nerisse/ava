@@ -59,11 +59,6 @@ export class BookmarkService {
       );
   }
 
-  // getBookmark(id: number): Observable<Bookmark> {
-  //   this.messageService.add(`BookmarkService: fetched bookmark id=${id}`);
-  //   return of(BOOKMARKS.find(bookmark => bookmark.id === id));
-  // }
-
   getBookmark(id: number): Observable<Bookmark> {
     const url = `${this.bookmarksUrl}/${id}`;
     return this.http.get<Bookmark>(url).pipe(
@@ -72,7 +67,7 @@ export class BookmarkService {
     );
   }
 
-  getBookmarksOfGroup(group: string): Observable<Bookmark[]> {
+  getBookmarksOfGroup(group?: string): Observable<Bookmark[]> {
     const bookmarks = group? this.getBookmarks().pipe(map(bookmark => bookmark.filter(b => b.group === group))) : this.getBookmarks();
     this.messageService.add(`BookmarkService: fetched bookmark group=${group}`);
     return bookmarks;

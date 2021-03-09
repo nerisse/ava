@@ -23,6 +23,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { BookmarkEffects } from './state/bookmarks.effects';
+import { BookmarkService } from './bookmark.service';
 
 @NgModule({
   declarations: [AppComponent, BookmarksComponent, BookmarkDetailComponent, MessagesComponent, DashboardComponent, NavComponent],
@@ -35,8 +41,11 @@ import { InMemoryDataService } from './in-memory-data.service';
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     ),
-    StoreModule.forRoot({}, {})],
-  providers: [],
+    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([BookmarkEffects]),
+    !environment.production ? StoreDevtoolsModule.instrument() : []],
+  providers: [BookmarkService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

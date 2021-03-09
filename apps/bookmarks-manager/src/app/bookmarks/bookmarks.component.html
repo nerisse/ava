@@ -2,25 +2,26 @@
 <div class="form-container">
   <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput #bookmarkName placeholder="Bookmark Name"/>
+    <input matInput #bookmarkName placeholder="Bookmark Name" required/>
   </mat-form-field>
   <mat-form-field appearance="standard">
     <mat-label>URL</mat-label>
-    <input matInput #bookmarkUrl placeholder="URL" type="text"/>
+    <input matInput #bookmarkUrl placeholder="URL" type="text" required/>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Group</mat-label>
-    <input matInput #group placeholder="group"/>
+    <input matInput #group placeholder="group" required/>
   </mat-form-field>
   <div class="button-wrapper">
   <button mat-raised-button color="primary" (click)="addBookmark(bookmarkName.value, bookmarkUrl.value, group.value); bookmarkName.value=bookmarkUrl.value=group.value=''">Add bookmark</button>
   </div>
 </div>
 <mat-nav-list>
-  <mat-list-item *ngFor="let bookmark of bookmarks">
-    <a routerLink="/detail/{{bookmark.id}}">
-      <span mat-line>{{ bookmark.name }}</span>
+  <mat-list-item *ngFor="let bookmark of list$ | async">
+    <a mat-line routerLink="/detail/{{bookmark.id}}">
+      <span >{{ bookmark.name }}</span>
     </a>
+<!--    <a mat-line href="{{bookmark.url}}">{{ bookmark.url }}</a>-->
     <button class="delete" mat-icon-button (click)="deleteBookmark(bookmark)">
       <mat-icon>delete</mat-icon>
     </button>

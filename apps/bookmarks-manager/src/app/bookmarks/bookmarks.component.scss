@@ -4,7 +4,14 @@ input {
 
 button.delete {
   position: absolute;
-  left: 250px;
+  left: 260px;
+  color:  #525252;
+  font-size: 1.1rem;
+}
+
+button.edit {
+  position: relative;
+  //left: 230px;
   color:  #525252;
   font-size: 1.1rem;
 }

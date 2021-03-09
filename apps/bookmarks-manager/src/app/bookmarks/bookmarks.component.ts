@@ -3,6 +3,10 @@ import {Bookmark} from '../bookmark';
 import {BookmarkService} from '../bookmark.service';
 import {MessageService} from '../message.service';
 import {ActivatedRoute} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {selectBookmark, State} from '../reducers';
+
+import * as bookmarkActions from '../state/bookmarks.actions';
 
 @Component({
   selector: 'ava-bookmarks',
@@ -14,38 +18,31 @@ export class BookmarksComponent implements OnInit {
   bookmarks: Bookmark[] = [];
   groupName: string;
 
-  constructor(private route: ActivatedRoute,
+  editItemUrl = '/bookmarks/edit-bookmark/';
+  list$: any;
+  list: Bookmark[];
+
+  constructor(private store: Store<State>,
               private bookmarkService: BookmarkService,
-              private messageService: MessageService) { }
+              private messageService: MessageService,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.groupName = this.route.snapshot.paramMap.get('group');
-    this.getBookmarksOfGroup();
-  }
-
-  getBookmarks(): void {
-    this.bookmarkService.getBookmarks()
-      .subscribe(bookmarks => this.bookmarks = bookmarks)
-  }
-
-  getBookmarksOfGroup(): void{
-
-    this.messageService.add('BookmarksComponent:'+ this.groupName);
-    this.bookmarkService.getBookmarksOfGroup(this.groupName)
-      .subscribe(bookmarks => this.bookmarks = bookmarks)
+    this.store.dispatch(new bookmarkActions.LoadBookmarks(this.groupName));
+    this.list$ = this.store.select(selectBookmark);
   }
 
   addBookmark(name: string, url: string, group: string): void {
     name = name.trim();
     if (!name) { return; }
-    this.bookmarkService.addBookmark({ name, url, group } as Bookmark)
-      .subscribe(bookmark => {
-        this.bookmarks.push(bookmark);
-      });
+    this.store.dispatch(new bookmarkActions.CreateBookmark({ name, url, group } as Bookmark));
   }
 
   deleteBookmark(bookmark: Bookmark): void {
-    this.bookmarks = this.bookmarks.filter(h => h !== bookmark);
-    this.bookmarkService.deleteBookmark(bookmark).subscribe();
+    const isConfirmed = confirm(`Delete ${bookmark.name} ?`);
+    if (!isConfirmed) return;
+    this.store.dispatch(new bookmarkActions.DeleteBookmark(bookmark));
+    this.store.dispatch(new bookmarkActions.LoadBookmarks(this.groupName));
   }
 }

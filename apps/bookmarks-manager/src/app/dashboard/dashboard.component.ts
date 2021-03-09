@@ -11,7 +11,8 @@ export class DashboardComponent implements OnInit {
   bookmarks: Bookmark[] = [];
   groups: string[] = [];
 
-  constructor(private bookmarkService: BookmarkService) { }
+  constructor(private bookmarkService: BookmarkService,
+           ) { }
 
   ngOnInit() {
     this.getGroups();

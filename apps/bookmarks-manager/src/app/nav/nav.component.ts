@@ -15,7 +15,7 @@ export class NavComponent {
       map(result => result.matches),
       shareReplay()
     );
-  title = 'Bookmarks';
+  title = 'Bookmark Manager';
   constructor(private breakpointObserver: BreakpointObserver) {}
 
 }
