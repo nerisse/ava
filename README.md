@@ -1,8 +1,28 @@
 
 
 # Ava
+## Bookmarks-Manager
 
+This application implements a bookmark manager that allows a user to manage a list of bookmarks. 
+
+The bookmark properties include ID, Name, URL, and Group. 
+
+The dashboard displays all the Bookmark Groups available. Each bookmark group lists all bookmarks categorized under it. 
+
+On the bookmarks list view, the user is able to add, delete, and update a bookmark. 
+
+### Running the application
+- Checkout the project (currently lives under https://github.com/nerisse/ava)  
+- Execute `npx nx serve bookmarks-manager`  
+- Navigate to http://localhost:4200/
+![img.png](readme/img.png)![img_1.png](readme/img_1.png)![img_2.png](readme/img_2.png)
+
+---
 This project was generated using [Nx](https://nx.dev).
+
+
+
+
 
 <p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 

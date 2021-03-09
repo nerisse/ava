@@ -39,7 +39,9 @@
     "@angular/platform-browser": "^11.2.0",
     "@angular/platform-browser-dynamic": "^11.2.0",
     "@angular/router": "^11.2.0",
+    "@ngrx/store": "^11.0.1",
     "@nrwl/angular": "11.4.0",
+    "angular-in-memory-web-api": "^0.11.0",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "^0.10.2"

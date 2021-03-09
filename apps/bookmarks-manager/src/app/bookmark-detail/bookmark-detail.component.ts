@@ -29,4 +29,9 @@ export class BookmarkDetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  save(): void {
+    this.bookmarkService.updateBookmark(this.bookmark)
+      .subscribe(() => this.goBack());
+  }
 }
