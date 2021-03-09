@@ -3,9 +3,8 @@ import { Bookmark} from '../bookmark';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { BookmarkService} from '../bookmark.service';
-import * as bookmarkActions from '../state/bookmarks.actions';
 import { Store } from '@ngrx/store';
-import {State} from '../reducers';
+import { State } from '../reducers';
 
 @Component({
   selector: 'ava-bookmark-detail',
@@ -35,6 +34,7 @@ export class BookmarkDetailComponent implements OnInit {
   }
 
   save(): void {
-    this.store.dispatch(new bookmarkActions.UpdateBookmark(this.bookmark));
+    this.bookmarkService.updateBookmark(this.bookmark)
+      .subscribe(() => this.goBack());
   }
 }
