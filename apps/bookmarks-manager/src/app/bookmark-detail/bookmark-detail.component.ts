@@ -7,7 +7,7 @@ import { BookmarkService} from '../bookmark.service';
 @Component({
   selector: 'ava-bookmark-detail',
   templateUrl: './bookmark-detail.component.html',
-  styleUrls: ['./bookmark-detail.component.scss']
+  styleUrls: []
 })
 export class BookmarkDetailComponent implements OnInit {
 

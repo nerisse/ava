@@ -1,17 +1,28 @@
 <div *ngIf="bookmark">
   <h2>{{bookmark.name | uppercase}} Details</h2>
-  <div><span>ID: </span>{{bookmark.id}}</div>
-  <div>
-    <input id="bookmark-name" [(ngModel)]="bookmark.name" placeholder="name">
-    <label for="bookmark-name">Name </label>
-  </div>
-  <div>
-    <input id="bookmark-url" [(ngModel)]="bookmark.url" placeholder="url">
-    <label for="bookmark-url">URL </label>
-  </div>
-  <div>
-    <input id="bookmark-group" [(ngModel)]="bookmark.group" placeholder="group">
-    <label for="bookmark-group">Group </label>
-  </div>
 </div>
-<button (click)="goBack()">My Bookmarks</button>
+
+
+<div >
+  <mat-form-field>
+    <mat-label>ID</mat-label>
+    <input matInput placeholder="Id" [(ngModel)]="bookmark.id" disabled>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" [(ngModel)]="bookmark.name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>URL</mat-label>
+    <input matInput placeholder="URL" [(ngModel)]="bookmark.url">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Group</mat-label>
+    <input matInput placeholder="Group" [(ngModel)]="bookmark.group">
+  </mat-form-field>
+</div>
+<div>
+  <button mat-raised-button color="primary">OK</button>
+<!--  <button mat-raised-button color="primary" (click)="save()">Save</button>-->
+  <button mat-raised-button (click)="goBack()">Back</button>
+</div>

@@ -7,17 +7,19 @@ import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'ava-bookmarks',
   templateUrl: './bookmarks.component.html',
-  styleUrls: ['./bookmarks.component.scss']
+  styleUrls: []
 })
 export class BookmarksComponent implements OnInit {
 
   bookmarks: Bookmark[] = [];
+  groupName: string;
 
   constructor(private route: ActivatedRoute,
               private bookmarkService: BookmarkService,
               private messageService: MessageService) { }
 
   ngOnInit() {
+    this.groupName = this.route.snapshot.paramMap.get('group');
     this.getBookmarksOfGroup();
   }
 
@@ -27,9 +29,9 @@ export class BookmarksComponent implements OnInit {
   }
 
   getBookmarksOfGroup(): void{
-    const groupName = this.route.snapshot.paramMap.get('group');
-    this.messageService.add('BookmarksComponent:'+ groupName);
-    this.bookmarkService.getBookmarksOfGroup(groupName)
+
+    this.messageService.add('BookmarksComponent:'+ this.groupName);
+    this.bookmarkService.getBookmarksOfGroup(this.groupName)
       .subscribe(bookmarks => this.bookmarks = bookmarks)
   }
 }
