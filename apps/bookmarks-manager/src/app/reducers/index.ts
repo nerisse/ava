@@ -6,11 +6,8 @@ export interface State {
   bookmarks: BookmarkState;
 }
 
-/*
-  This reducers combine the two reducers which is the bookmarkReducer and the villainReducer
-*/
 export const reducers: ActionReducerMap<State> = {
-  bookmarks: bookmarkReducer,
+  bookmarks: bookmarkReducer
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production
@@ -22,4 +19,9 @@ export const selectBookmarksState = (state: State) => state.bookmarks;
 export const selectBookmark = createSelector(
   selectBookmarksState,
   (state: BookmarkState) => state.bookmarks
+);
+export const selectGroupsState = (state: State) => state.bookmarks;
+export const selectGroups = createSelector(
+  selectGroupsState,
+  (state: BookmarkState) => state.groups
 );

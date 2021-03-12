@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
 import {Observable, of} from 'rxjs';
-import {catchError, map, mergeMap, tap} from 'rxjs/operators';
+import {catchError, map, mergeMap} from 'rxjs/operators';
 
 import {Bookmark} from '../bookmark';
 import {BookmarkService} from '../bookmark.service';
@@ -14,14 +14,22 @@ export class BookmarkEffects {
 
   loadBookmarks$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(bookmarkActions.BookmarkActionTypes.LoadBookmarks), // sends LoadBookmarks action
-    tap(val => console.log('BEFORE MAP:', val)),
     mergeMap((bookmark: Bookmark) =>
       this.bookmarkService.getBookmarksOfGroup(bookmark.group).pipe(
         map(bookmarks => new bookmarkActions.LoadBookmarksSuccess(bookmarks)),
         catchError(err => of(new bookmarkActions.LoadBookmarksFail(err)))
       )
-    ),
-    tap(val => console.log('AFTER MAP:', val))
+    )
+  ));
+
+  loadGroups$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(bookmarkActions.BookmarkActionTypes.LoadGroups),
+    mergeMap(() =>
+      this.bookmarkService.getGroups().pipe(
+        map(groups => new bookmarkActions.LoadGroupsSuccess(groups)),
+        catchError(err => of(new bookmarkActions.LoadGroupsFail(err)))
+      )
+    )
   ));
 
 
@@ -51,15 +59,12 @@ export class BookmarkEffects {
   deleteBookmark$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(bookmarkActions.BookmarkActionTypes.DeleteBookmark),
     map((action: bookmarkActions.DeleteBookmark) => action.payload),
-    tap(val => console.log('BEFORE MAP:', val)),
     mergeMap((bookmark: Bookmark) =>
-      this.bookmarkService.deleteBookmark(bookmark).pipe(
-        map(_ => new bookmarkActions.DeleteBookmarkSuccess(_)),
+      this.bookmarkService.deleteBookmark(bookmark.id).pipe(
+        map(() => new bookmarkActions.DeleteBookmarkSuccess(bookmark.id)),
         catchError(err => of(new bookmarkActions.DeleteBookmarkFail(err)))
       )
-    ),
-    tap(val => console.log('AFTER MAP:', val))
+    )
   ));
-
 
 }

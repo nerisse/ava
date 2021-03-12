@@ -43,6 +43,5 @@ export class BookmarksComponent implements OnInit {
     const isConfirmed = confirm(`Delete ${bookmark.name} ?`);
     if (!isConfirmed) return;
     this.store.dispatch(new bookmarkActions.DeleteBookmark(bookmark));
-    this.store.dispatch(new bookmarkActions.LoadBookmarks(this.groupName));
   }
 }

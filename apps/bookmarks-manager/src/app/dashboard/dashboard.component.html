@@ -1,5 +1,5 @@
 <h3>Categories</h3>
-<mat-card class="dashboard-card" *ngFor="let group of groups" routerLink="/bookmarks/{{group}}">
+<mat-card class="dashboard-card" *ngFor="let group of listGroups$ | async" routerLink="/bookmarks/{{group}}">
   <h4>{{ group }}</h4>
 </mat-card>
 <!--<ava-messages></ava-messages>-->

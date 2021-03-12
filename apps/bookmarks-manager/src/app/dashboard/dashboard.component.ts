@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Bookmark } from '../bookmark';
-import { BookmarkService } from '../bookmark.service';
+import { selectGroups, State} from '../reducers';
+import { Store} from '@ngrx/store';
+import * as bookmarkActions from '../state/bookmarks.actions';
 
 @Component({
   selector: 'ava-dashboard',
@@ -10,9 +12,10 @@ import { BookmarkService } from '../bookmark.service';
 export class DashboardComponent implements OnInit {
   bookmarks: Bookmark[] = [];
   groups: string[] = [];
+  listGroups$ : any;
+  listGroup: string[];
 
-  constructor(private bookmarkService: BookmarkService,
-           ) { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
     this.getGroups();
@@ -22,6 +25,7 @@ export class DashboardComponent implements OnInit {
    * @returns Observable<string[]> Returns the observable array of of bookmark groups/categories
    */
   getGroups(): void {
-    this.bookmarkService.getGroups().subscribe(groups => this.groups = groups);
+    this.store.dispatch(new bookmarkActions.LoadGroups());
+    this.listGroups$ = this.store.select(selectGroups);
   }
 }

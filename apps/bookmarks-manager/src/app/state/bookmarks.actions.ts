@@ -6,6 +6,10 @@ export enum BookmarkActionTypes {
   LoadBookmarksSuccess = '[Bookmark] Load Bookmarks Success',
   LoadBookmarksFail = '[Bookmark] Load Bookmarks Fail',
 
+  LoadGroups = '[Bookmark] Load Groups',
+  LoadGroupsSuccess = '[Bookmark] Load Groups Success',
+  LoadGroupsFail = '[Bookmark] Load Groups Fail',
+
   CreateBookmark = '[Bookmark] Create Bookmark',
   CreateBookmarkSuccess = '[Bookmark] Create Bookmark Success',
   CreateBookmarkFail = '[Bookmark] Create Bookmark Fail',
@@ -31,6 +35,20 @@ export class LoadBookmarksSuccess implements Action {
 
 export class LoadBookmarksFail implements Action {
   readonly type = BookmarkActionTypes.LoadBookmarksFail;
+  constructor(public payload: any) {}
+}
+
+export class LoadGroups implements Action {
+  readonly type = BookmarkActionTypes.LoadGroups;
+}
+
+export class LoadGroupsSuccess implements Action {
+  readonly type = BookmarkActionTypes.LoadGroupsSuccess;
+  constructor(public payload: string[]) {}
+}
+
+export class LoadGroupsFail implements Action {
+  readonly type = BookmarkActionTypes.LoadGroupsFail;
   constructor(public payload: any) {}
 }
 
@@ -71,7 +89,7 @@ export class DeleteBookmark implements Action {
 
 export class DeleteBookmarkSuccess implements Action {
   readonly type = BookmarkActionTypes.DeleteBookmarkSuccess;
-  constructor(public payload: any) {}
+  constructor(public payload: number) {}
 }
 
 export class DeleteBookmarkFail implements Action {
@@ -83,6 +101,9 @@ export type BookmarkActions =
   | LoadBookmarks
   | LoadBookmarksSuccess
   | LoadBookmarksFail
+  | LoadGroups
+  | LoadGroupsSuccess
+  | LoadGroupsFail
   | CreateBookmark
   | CreateBookmarkSuccess
   | CreateBookmarkFail

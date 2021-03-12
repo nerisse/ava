@@ -6,13 +6,15 @@ export interface BookmarkState {
   bookmark: Bookmark;
   requesting: boolean;
   error: string;
+  groups: string[];
 }
 
 export const initialState: BookmarkState = {
   bookmarks: [],
   bookmark: {} as Bookmark,
   requesting: false,
-  error: ''
+  error: '',
+  groups: []
 };
 
 export function bookmarkReducer(
@@ -27,6 +29,12 @@ export function bookmarkReducer(
       return { ...state, bookmarks: action.payload, requesting: false };
     case BookmarkActionTypes.LoadBookmarksFail:
       return { ...state, bookmarks: [], error: action.payload, requesting: false };
+    case BookmarkActionTypes.LoadGroups:
+      return { ...state, requesting: true };
+    case BookmarkActionTypes.LoadGroupsSuccess:
+      return { ...state, groups: action.payload, requesting: false };
+    case BookmarkActionTypes.LoadGroupsFail:
+      return { ...state, groups: [], error: action.payload, requesting: false };
     case BookmarkActionTypes.CreateBookmark:
       return { ...state, requesting: true };
     case BookmarkActionTypes.CreateBookmarkSuccess:
