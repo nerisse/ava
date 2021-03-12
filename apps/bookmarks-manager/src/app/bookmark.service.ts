@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Bookmark} from './bookmark';
-import {BOOKMARKS} from './mock-bookmarks';
 import {Observable, of} from 'rxjs';
 import {MessageService} from './message.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -19,12 +18,6 @@ export class BookmarkService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
-
-  // getBookmarks(): Observable<Bookmark[]> {
-  //   const bookmarks = of(BOOKMARKS);
-  //   this.log('fetched all bookmarks');
-  //   return bookmarks;
-  // }
 
   /** Log a BookmarkService message with the MessageService */
   private log(message: string) {
@@ -74,8 +67,13 @@ export class BookmarkService {
   }
 
   getGroups(): Observable<string[]> {
+    const groups = this.getBookmarks().pipe(
+      map(bookmark =>
+        Array.from(new Set(bookmark.map(b => b.group))))
+    );
     this.messageService.add(`BookmarkService: fetching bookmark groups`);
-    return of([...new Set(BOOKMARKS.map(item => item.group))]);
+
+    return groups;
   }
 
   updateBookmark(bookmark: Bookmark): Observable<any> {

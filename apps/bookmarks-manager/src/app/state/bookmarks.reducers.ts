@@ -41,6 +41,7 @@ export function bookmarkReducer(
       return {
         ...state,
         bookmarks: [...state.bookmarks, action.payload],
+        groups: [...state.groups, action.payload.group],
         requesting: false
       };
     case BookmarkActionTypes.CreateBookmarkFail:
